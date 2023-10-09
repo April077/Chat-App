@@ -20,6 +20,10 @@ io.on("connection", (socket) => {
         console.log(`user with id-${socket.id} sent msg - ${message}`);
         io.emit("serverMessage", message);
     });
+    socket.on("vote", ({ newVote, index }) => {
+        console.log(newVote, index);
+        io.emit("updatedVote", ({ newVote, index }));
+    });
     socket.on("disconnect", () => {
         console.log("A user disconnected:", socket.id);
     });

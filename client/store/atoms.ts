@@ -9,3 +9,9 @@ export const receivedMsgState = atom({
   key: "receivedMsgState",
   default: [],
 });
+
+
+export const voteState = atom({
+  key: "voteState",
+  default: [],
+});
