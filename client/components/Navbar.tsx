@@ -22,9 +22,9 @@ const Navbar = async () => {
               {" "}
               <Image
                 className="rounded-full"
-                src={session?.user?.image ?? ""}
-                height={40}
-                width={40}
+                src={session?.user?.image || "/user.png"}
+                height={35}
+                width={35}
                 alt="profile"
               />
             </div>

@@ -6,11 +6,12 @@ export async function POST(req: Request,) {
     try {
         const data = await req.json()
         console.log(data)
-        const { chatMsg, userId } = data;
+        const { chatMsg, userId, roomId } = data;
         const chat = await prisma.chat.create({
             data: {
                 chatMsg,
-                userId
+                userId,
+                roomId
             }
         })
 

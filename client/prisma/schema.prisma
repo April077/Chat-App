@@ -9,10 +9,22 @@ generator client {
 }
 
 model Chat {
-    id      String  @id @default(cuid())
+    id      String   @id @default(cuid())
     chatMsg String
-    User    User?   @relation(fields: [userId], references: [id])
-    userId  String?
+    votes   Int      @default(0)
+    voters  String[]
+    User    User?    @relation(fields: [userId], references: [id])
+    userId  String
+    roomId  String
+    Room    Room?    @relation(fields: [roomId], references: [id])
+}
+
+model Room {
+    id     String @id @default(cuid())
+    name   String
+    author User?  @relation(fields: [userId], references: [id])
+    userId String
+    Chat   Chat[]
 }
 
 model Account {
@@ -52,6 +64,7 @@ model User {
     courses       Chat[]
     accounts      Account[]
     sessions      Session[]
+    Room          Room[]
 }
 
 model VerificationToken {
