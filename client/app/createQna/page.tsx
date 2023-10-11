@@ -15,6 +15,7 @@ interface RoomProp {
   roomId: String;
   open: boolean;
   roomName: String;
+  roomAdmin: String;
 }
 const CreateQna = (props: RoomProp) => {
   if (props.open) {
@@ -24,8 +25,12 @@ const CreateQna = (props: RoomProp) => {
     const [vote, setVote] = useRecoilState(voteState);
     const [loading, setLoading] = useState(true);
     const [msgObj, setMsgObj] = useState([]);
+    const [sortOrder, setSortOrder] = useState("asc");
+    const [buttonDisable, setButtonDisable] = useState(false);
 
     useEffect(() => {
+      socket.off("serverMessage");
+      socket.off("updatedVote");
       const getData = async () => {
         const response = await fetch("http://localhost:3000/api/getChat", {
           method: "POST",
@@ -43,6 +48,9 @@ const CreateQna = (props: RoomProp) => {
           return;
         }
         const chats = data.msgs;
+        if (sortOrder === "desc") {
+          chats.sort((a, b) => b.votes - a.votes);
+        }
         setMsgObj(chats);
         const chatMessage = chats.map((chat) => {
           return chat.chatMsg;
@@ -73,7 +81,7 @@ const CreateQna = (props: RoomProp) => {
           return upVote;
         });
       });
-    }, [props.roomId]);
+    }, [props.roomId, sortOrder]);
 
     if (loading) {
       return (
@@ -90,12 +98,26 @@ const CreateQna = (props: RoomProp) => {
       <div className="flex flex-col w-full">
         <div className="flex justify-between  border-b-[1px] px-10">
           {" "}
-          <div className="font-bold p-3 border-b-[1px] flex justify-center">
+          <div className="font-bold p-3 text-xl border-b-[1px] flex justify-center">
             {props.roomName}
           </div>
+          {/* {session.data?.user.id === props.roomAdmin && (
+            <Image
+              className="cursor-pointer mt-2.5  w-7 h-7 flex justify-center  "
+              onClick={() => {
+                setButtonDisable((prev) => !prev);
+              }}
+              src={"/pause.png"}
+              height={10}
+              width={40}
+              alt="sort"
+            ></Image> */}
+          
           <Image
             className="cursor-pointer"
-            onClick={() => {}}
+            onClick={() => {
+              setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+            }}
             src={"/sorting.png"}
             height={10}
             width={45}
@@ -166,6 +188,7 @@ const CreateQna = (props: RoomProp) => {
             }}
           ></input>
           <button
+            disabled={buttonDisable}
             onClick={async () => {
               if (message.trim() !== "") {
                 socket.emit("user-msg", message);

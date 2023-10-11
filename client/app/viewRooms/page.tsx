@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, CSSProperties } from "react";
 import CreateQna from "../createQna/page";
 
 const Rooms = () => {
@@ -7,6 +7,7 @@ const Rooms = () => {
   const [roomId, setRoomId] = useState("");
   const [open, setOpen] = useState(false);
   const [roomName, setRoomName] = useState("");
+  const [roomAdmin, setRoomAdmin] = useState("");
 
   useEffect(() => {
     const getData = async () => {
@@ -27,6 +28,7 @@ const Rooms = () => {
               setRoomId(room.id);
               setOpen(true);
               setRoomName(room.name);
+              setRoomAdmin(room.userId);
               console.log(room.id);
             }}
             key={index}
@@ -37,7 +39,12 @@ const Rooms = () => {
         ))}
       </div>
       <div className="col-span-4">
-        <CreateQna roomId={roomId} open={open} roomName={roomName} />
+        <CreateQna
+          roomId={roomId}
+          roomAdmin={roomAdmin}
+          open={open}
+          roomName={roomName}
+        />
       </div>
     </div>
   );
