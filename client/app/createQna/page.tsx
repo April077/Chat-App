@@ -54,10 +54,9 @@ const CreateQna = (props: RoomProp) => {
         });
         setVote(chatVote);
         console.log(chatVote);
-        console.log(chats);
+        console.log(chats, "jjii");
         setLoading(false);
-        console.log(msgObj,"msgObj");
-        
+        console.log(msgObj, "msgObj");
       };
       getData();
 
@@ -134,6 +133,7 @@ const CreateQna = (props: RoomProp) => {
                           body: JSON.stringify({
                             userId: session.data?.user.id,
                             msgIndex: index,
+                            roomId: props.roomId,
                           }),
                         }
                       );

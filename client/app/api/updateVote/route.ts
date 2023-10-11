@@ -4,13 +4,14 @@ import { NextResponse } from "next/server";
 export async function PATCH(req: Request) {
     try {
         const body = await req.json();
-        const { userId, msgIndex } = body;
-        const msgObj = await prisma.chat.findFirst({
-            orderBy: {
-                id: "asc"
-            },
-            skip: msgIndex,
-        });
+        const { userId, msgIndex, roomId } = body;
+
+        const msgArr = await prisma.chat.findMany({
+            where: {
+                roomId: roomId
+            }
+        })
+        const msgObj = msgArr[msgIndex]
         if (!msgObj) {
             return NextResponse.json({ error: "Message not found" }, { status: 404 });
         }
