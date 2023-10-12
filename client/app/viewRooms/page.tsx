@@ -2,6 +2,11 @@
 import React, { useEffect, useState, CSSProperties } from "react";
 import CreateQna from "../createQna/page";
 
+interface RoomProp {
+  id: string;
+  name: string;
+  userId: string;
+}
 const Rooms = () => {
   const [rooms, setRooms] = useState([]);
   const [roomId, setRoomId] = useState("");
@@ -22,7 +27,7 @@ const Rooms = () => {
   return (
     <div className="grid h-screen  grid-cols-5 gap-4">
       <div className=" border-r-[2px]">
-        {rooms.map((room, index) => (
+        {rooms.map((room: RoomProp, index) => (
           <div
             onClick={() => {
               setRoomId(room.id);

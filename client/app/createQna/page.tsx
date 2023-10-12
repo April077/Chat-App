@@ -17,6 +17,17 @@ interface RoomProp {
   roomName: String;
   roomAdmin: String;
 }
+
+interface ChatProp {
+  votes: number;
+  chatMsg: string;
+}
+
+interface VoteProp {
+  newVote: number;
+  index: number;
+}
+
 const CreateQna = (props: RoomProp) => {
   if (props.open) {
     const session = useSession();
@@ -49,15 +60,15 @@ const CreateQna = (props: RoomProp) => {
         }
         const chats = data.msgs;
         if (sortOrder === "desc") {
-          chats.sort((a, b) => b.votes - a.votes);
+          chats.sort((a: ChatProp, b: ChatProp) => b.votes - a.votes);
         }
         setMsgObj(chats);
-        const chatMessage = chats.map((chat) => {
+        const chatMessage = chats.map((chat: ChatProp) => {
           return chat.chatMsg;
         });
         setReceivedMessage(chatMessage);
 
-        const chatVote = chats.map((chat) => {
+        const chatVote = chats.map((chat: ChatProp) => {
           return chat.votes;
         });
         setVote(chatVote);
@@ -68,15 +79,15 @@ const CreateQna = (props: RoomProp) => {
       };
       getData();
 
-      socket.on("serverMessage", (message) => {
+      socket.on("serverMessage", (message: string) => {
         setVote((prev) => [...prev, 0]);
         setReceivedMessage((prevChats) => [...prevChats, message]);
       });
 
-      socket.on("updatedVote", ({ newVote, index }) => {
+      socket.on("updatedVote", ({ newVote, index }: VoteProp) => {
         console.log(newVote, index, "hi");
-        setVote((prev) => {
-          const upVote = [...prev];
+        setVote((prev: number[]) => {
+          const upVote: number[] = [...prev];
           upVote[index] = newVote;
           return upVote;
         });
@@ -112,7 +123,6 @@ const CreateQna = (props: RoomProp) => {
               width={40}
               alt="sort"
             ></Image> */}
-          
           <Image
             className="cursor-pointer"
             onClick={() => {
