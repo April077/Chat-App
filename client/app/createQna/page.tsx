@@ -8,14 +8,16 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { NextPage } from "next";
 
 const socket = io("http://localhost:3001");
 
 interface RoomProp {
   roomId: string;
+  roomAdmin: string;
   open: boolean;
   roomName: string;
-  roomAdmin: string;
+  
 }
 
 interface ChatProp {
@@ -28,7 +30,7 @@ interface VoteProp {
   index: number;
 }
 
-const CreateQna: React.FC<RoomProp> = (props: RoomProp) => {
+const CreateQna: NextPage<RoomProp> = (props) => {
   if (props.open) {
     const session = useSession();
     const [message, setMessage] = useRecoilState(messageState);

@@ -3,7 +3,7 @@ import type { GetServerSidePropsContext, Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Provider from "../components/Provider";
 import { Session } from "next-auth";
-import RecoilContextProvider from "./recoilContextProvider";
+import RecoilContextProvider from "../components/recoilContextProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",

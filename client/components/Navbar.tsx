@@ -37,7 +37,7 @@ const Navbar = async () => {
   return (
     <div className="p-4 border-b-[1px]">
       <div className="px-20 flex justify-between">
-        <div className="text-xl font-bold text-rose-500">Spaceship</div>
+      <div  className="text-2xl text-center font-bold text-rose-500">Space<span className="text-xl font-bold text-black">Ship</span></div>
         <ButtonLogin />
       </div>
     </div>

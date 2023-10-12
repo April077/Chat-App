@@ -11,7 +11,7 @@ const Toggle = () => {
         Create Rooms
       </Link>
       <Link className="pr-3 pl-2  font-bold" href="/viewRooms">
-       View Rooms
+       Visit Rooms
       </Link>
     </div>
   );
