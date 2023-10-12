@@ -124,7 +124,7 @@ const CreateQna: React.FC<RoomProp> = (props: RoomProp) => {
               alt="sort"
             ></Image> */}
           <Image
-            className="cursor-pointer"
+            className="cursor-pointer w-auto h-auto"
             onClick={() => {
               setSortOrder(sortOrder === "asc" ? "desc" : "asc");
             }}
@@ -151,6 +151,7 @@ const CreateQna: React.FC<RoomProp> = (props: RoomProp) => {
                     height={20}
                     width={20}
                     alt="upvote"
+                    className="cursor-pointer"
                     onClick={async () => {
                       console.log(session.data?.user.id, index);
                       console.log(vote[index], "ll");
