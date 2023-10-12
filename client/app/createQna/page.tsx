@@ -28,7 +28,7 @@ interface VoteProp {
   index: number;
 }
 
-const CreateQna = (props: RoomProp) => {
+const CreateQna: React.FC<RoomProp> = (props: RoomProp) => {
   if (props.open) {
     const session = useSession();
     const [message, setMessage] = useRecoilState(messageState);
