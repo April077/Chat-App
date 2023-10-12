@@ -5,7 +5,7 @@ export const messageState = atom<string>({
   default: "",
 });
 
-export const receivedMsgState = atom<String[]>({
+export const receivedMsgState = atom<string[]>({
   key: "receivedMsgState",
   default: [],
 });
