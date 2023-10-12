@@ -12,10 +12,10 @@ import "react-loading-skeleton/dist/skeleton.css";
 const socket = io("http://localhost:3001");
 
 interface RoomProp {
-  roomId: String;
+  roomId: string;
   open: boolean;
-  roomName: String;
-  roomAdmin: String;
+  roomName: string;
+  roomAdmin: string;
 }
 
 interface ChatProp {
